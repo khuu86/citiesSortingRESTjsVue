@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cities, sort in JavaScript</title>
+    <!-- Inkluder Bootstrap CSS for styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Inkluder Axios til HTTP-anmodninger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js"></script>
+    <!-- Inkluder Vue.js -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <h1>Cities, sort + filter in JavaScript</h1>
+    <!-- Vue app rod element -->
+    <div id="app">
+        <!-- Inputfelt til bynavn, binder til cityName i Vue data -->
+        <input placeholder="City Name" type="text" v-model="cityName" v-on:keyup.enter="filterByCityName(cityName)">
+        <!-- Filter knap, kalder filterByCityName metoden i Vue ved klik -->
+        <button v-on:click="filterByCityName(cityName)" class="btn btn-primary">
+            Filter
+        </button>
+
+        <!-- Tabel der vises hvis cities arrayet har elementer -->
+        <table v-if="cities.length > 0" class="table table-striped">
+            <thead>
+                <!-- Kolonneoverskrift for bynavn med sorteringsknap -->
+                <th><button v-on:click="sortByCityName()">City</button></th>
+                <!-- Kolonneoverskrift for postnummer med sorteringsknapper -->
+                <th>Zipcode
+                    <button v-on:click="sortByPostNrAscending()">asc</button>
+                    <button v-on:click="sortByPostNrDescending()">desc</button>
+                </th>
+            </thead>
+            <tbody>
+                <!-- Loop gennem hver by i cities arrayet og opret en række for hver -->
+                <tr v-for="city in cities">
+                    <!-- Vis bynavn -->
+                    <td>{{city.navn}}</td>
+                    <!-- Vis postnummer -->
+                    <td>{{city.nr}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Vis denne besked hvis cities arrayet er tomt -->
+        <div v-else>No such cities</div>
+    </div>
+
+    <!-- Inkluder JavaScript-filen der indeholder Vue.js logikken -->
+    <script src="index.js"></script>
+</body>
+
+</html>
